@@ -1,1 +1,11 @@
 <h1> Public Holidays</h1>
+
+    <label for="country">Choose a country:</label>
+
+    <select name="country" [formControl]="formControl">
+        <option *ngFor="let c of countriesList; index as i" [value]="c[0]"> {{ c[1].name }} </option>
+
+    </select>
+
+    <br>
+    <button type="button" class="btn btn-primary"> Nyomj meg!</button>
