@@ -22,7 +22,6 @@ export class HomeComponent {
       this.calendarService.getHolidays(option).subscribe((response: HolidayModel[]) => {
         console.log(response);
       });
-
     });
   }
 }

@@ -1,0 +1,59 @@
+<!--mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+</mwl-demo-utils-calendar-header-->
+<ng-template #customCellTemplate let-day="day">
+    <div class="cal-cell-top">
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <div *ngIf="day.events">
+        <p class="bg-primary" *ngFor="let event of events; let x = index">
+        <span class="text-white p-2 small" *ngIf="event?.start?.toDateString() == day.date?.toDateString()">{{event?.title}}</span>
+        <!--span class="text-white p-2 small">{{json.stringify(day) + " |||||| " + event?.start}}</span-->
+      </p>
+    </div>
+</ng-template>
+<div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="viewDateChange.next(viewDate)"
+        >
+          Previous
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+          (viewDateChange)="viewDateChange.next(viewDate)"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="viewDateChange.next(viewDate)"
+        >
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+    </div>
+  </div>
+  <br />
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [activeDayIsOpen]="false"
+    [cellTemplate]="customCellTemplate"
+  >
+  </mwl-calendar-month-view>
+</div>
